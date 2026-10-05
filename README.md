@@ -50,3 +50,19 @@ We would like to thank Dennis P. Gordon for his contributions to the understandi
 27. Tengö, M., Austin, B. J., Danielsen, F., & Fernández‐Llamazares, Á. (2021). Creating Synergies between Citizen Science and Indigenous and Local Knowledge. BioScience, 71(5), 503–518. https://doi.org/10.1093/biosci/biab023
 28. Tiago, P., Ceia-Hasse, A., Marques, T. A., Capinha, C., & Pereira, H. M. (2017). Spatial distribution of citizen science casuistic observations for different taxonomic groups. Scientific Reports, 7(1). https://doi.org/10.1038/s41598-017-13130-8
 29. Tittensor, D. P., Walpole, M., Hill, S. L. L., Boyce, D. G., Britten, G. L., Burgess, N. D., Butchart, S. H. M., Leadley, P., Regan, E., Alkemade, R., Baumung, R., Bellard, C., Bouwman, A. F., Bowles-Newark, N., Chenery, A. M., Cheung, W. W. L., Christensen, V., Cooper, H. D., Crowther, A. R., . . . Ye, Y. (2014). A mid-term analysis of progress toward international biodiversity targets. Science, 346(6206), 241–244. https://doi.org/10.1126/science.1257484
+# 2026 re-run
+`analysis/` repeats the study on live iNaturalist data (October 2026) and asks where crowd records could fill gaps in the official record:
+
+- species and observation counts over time, and how many observations each new species now costs;
+- Chao1 and ACE estimates of where the crowd will level off, with a bootstrap range, against the 2024 figures;
+- observations per species by group, and a half-degree observation map of New Zealand;
+- an exact species-name match between iNaturalist research-grade records and the NZTCS threat classification (plain binomials only; subspecies and varieties cannot be separated in the crowd data), including the Data Deficient species volunteers have already photographed.
+
+The 2024 comparison treated the NZTCS export as a full species list; it covers the ~15,500 species assessed for threat status, not the ~52,000 known from New Zealand, and the re-run compares like with like.
+
+```
+python3 -m venv .venv && .venv/bin/pip install pandas numpy openpyxl requests scipy
+cd analysis && ../.venv/bin/python fetch.py && ../.venv/bin/python run.py
+```
+
+`fetch.py` caches API responses in `analysis/cache/` (one request per second); `run.py` writes `results.json` and `species.json`; `build_page.py`, `page.js` and `page.css` build the portfolio page.
